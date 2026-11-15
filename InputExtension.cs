@@ -140,6 +140,13 @@ namespace f3
             get { if (Singleton == null) Singleton = new InputExtension(); return Singleton; }
         }
 
+        DesktopInputSource desktopInput = new DesktopInputSource();
+        public DesktopInputSource DesktopInput
+        {
+            get { return desktopInput; }
+            set { desktopInput = value ?? throw new ArgumentNullException(nameof(value)); }
+        }
+
         public InputMouse Mouse;
 
         public InputTrigger GamepadLeft;
@@ -164,10 +171,10 @@ namespace f3
             if (UnityUtil.InputAxisExists("Mouse X") && UnityUtil.InputAxisExists("Mouse Y")) {
                 Func<float> wheelFunc = () => { return 0; };
                 if (UnityUtil.InputAxisExists("Mouse ScrollWheel"))
-                    wheelFunc = () => { return Input.GetAxis("Mouse ScrollWheel"); };
+                    wheelFunc = () => { return DesktopInput.WheelDelta; };
                 Mouse = new InputMouse(
-                    () => { return new Vector2f(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")); }, 
-                    () => { return new Vector2f(Input.mousePosition.x, Input.mousePosition.y); },
+                    () => { return DesktopInput.Delta; },
+                    () => { var position = DesktopInput.Position; return new Vector2f(position.x, position.y); },
                     wheelFunc);
             } else {
                 Mouse = InputMouse.NoMouse;

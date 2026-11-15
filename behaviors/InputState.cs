@@ -173,22 +173,24 @@ namespace f3
             // [RMS] cannot differentiate these right now...
             eDevice = InputDevice.Mouse | InputDevice.Gamepad;
 
-            bShiftKeyDown = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-            bCtrlKeyDown = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
-            bCmdKeyDown = Input.GetKey(KeyCode.LeftCommand) || Input.GetKey(KeyCode.RightCommand);
-            bAltKeyDown = Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.LeftAlt);
+            var desktop = InputExtension.Get.DesktopInput;
 
-            bLeftMousePressed = Input.GetMouseButtonDown(0);
-            bLeftMouseDown = Input.GetMouseButton(0);
-            bLeftMouseReleased = Input.GetMouseButtonUp(0);
+            bShiftKeyDown = desktop.GetKey(KeyCode.LeftShift) || desktop.GetKey(KeyCode.RightShift);
+            bCtrlKeyDown = desktop.GetKey(KeyCode.LeftControl) || desktop.GetKey(KeyCode.RightControl);
+            bCmdKeyDown = desktop.GetKey(KeyCode.LeftCommand) || desktop.GetKey(KeyCode.RightCommand);
+            bAltKeyDown = desktop.GetKey(KeyCode.LeftAlt) || desktop.GetKey(KeyCode.LeftAlt);
 
-            bMiddleMousePressed = Input.GetMouseButtonDown(2);
-            bMiddleMouseDown = Input.GetMouseButton(2);
-            bMiddleMouseReleased = Input.GetMouseButtonUp(2);
+            bLeftMousePressed = desktop.GetMouseButtonDown(0);
+            bLeftMouseDown = desktop.GetMouseButton(0);
+            bLeftMouseReleased = desktop.GetMouseButtonUp(0);
 
-            bRightMousePressed = Input.GetMouseButtonDown(1);
-            bRightMouseDown = Input.GetMouseButton(1);
-            bRightMouseReleased = Input.GetMouseButtonUp(1);
+            bMiddleMousePressed = desktop.GetMouseButtonDown(2);
+            bMiddleMouseDown = desktop.GetMouseButton(2);
+            bMiddleMouseReleased = desktop.GetMouseButtonUp(2);
+
+            bRightMousePressed = desktop.GetMouseButtonDown(1);
+            bRightMouseDown = desktop.GetMouseButton(1);
+            bRightMouseReleased = desktop.GetMouseButtonUp(1);
 
             fMouseWheel = InputExtension.Get.Mouse.WheelDelta;
 
